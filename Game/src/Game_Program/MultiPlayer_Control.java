@@ -19,6 +19,7 @@ public class MultiPlayer_Control extends JLabel implements ActionListener{
 	
 	private Timer timer;
 	private boolean addToFrame = false;
+	private String keyUser;
 	
 	public MultiPlayer_Control(Player player) {
 		timer = new Timer(1, this);
@@ -27,8 +28,8 @@ public class MultiPlayer_Control extends JLabel implements ActionListener{
 		this.player =player;
 		this.x = player.getX();
 		this.y = player.getY();
-		
-		if(player.getKey_User().equals("Boss")) {
+		this.keyUser = player.getKey_User();
+		if(player.getKey_User().equals("Boss Player")) {
 			setIcon(new ImageIcon(Utility_Share.imgBoss));
 			setBounds(x, y, 398, 300);
 		}else {
@@ -77,8 +78,13 @@ public class MultiPlayer_Control extends JLabel implements ActionListener{
 		this.speedY = speedY;
 	}
 	
-	
+	public int getBlood() {
+		return player.getBlood();
+	}
 
+	public void setBlood(int blood) {
+		player.setBlood(player.getBlood()-blood);
+	}
 
 	public boolean isAddToFrame() {
 		return addToFrame;
@@ -86,6 +92,15 @@ public class MultiPlayer_Control extends JLabel implements ActionListener{
 
 	public void setAddToFrame(boolean addToFrame) {
 		this.addToFrame = addToFrame;
+	}
+
+	
+	public String getKeyUser() {
+		return keyUser;
+	}
+
+	public void setKeyUser(String keyUser) {
+		this.keyUser = keyUser;
 	}
 
 	@Override

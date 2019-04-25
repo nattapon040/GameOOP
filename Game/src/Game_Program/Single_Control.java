@@ -15,29 +15,26 @@ import Utility_Share.Utility_Share;
 public class Single_Control extends JLabel implements KeyListener,ActionListener{
 	private int x,y;
 	private int speedX=0,speedY=0;
-	Player player;
+
 	private Timer timer;
-	
-	
+	private int blood;
+	public static String KeyUser = "Player "+Utility_Share.sRandom.nextInt(255);
 	public Single_Control(int x, int y) {
-		
 		this.x = x;
 		this.y = y;
-
 		timer = new  Timer(30, this);
 		timer.start();
 		
-		player = new Player("Player "+Utility_Share.sRandom.nextInt(255), x, y);
-		player.setBlood(260);
+		Utility_Share.player = new Player(KeyUser, x, y);
+		Utility_Share.player.setBlood(260);
+		this.blood = Utility_Share.player.getBlood();
+		
 		setBounds(x, y, 82, 82);
 		setIcon(new ImageIcon(Utility_Share.imgPlayer));
 		addKeyListener(this);
 		setFocusable(true);
 
 		requestFocus();
-		System.out.println(11111);
-		
-		
 	}
 
 	public void update() {
@@ -58,22 +55,21 @@ public class Single_Control extends JLabel implements KeyListener,ActionListener
 		if(y>=690) {
 			y=690;
 		}
-		player.setX(x);
-		player.setY(y);		
+		Utility_Share.player.setX(x);
+		Utility_Share.player.setY(y);		
 		
-		player.setSpeedX(speedX);
-		player.setSpeedY(speedY);
+		Utility_Share.player.setSpeedX(speedX);
+		Utility_Share.player.setSpeedY(speedY);
 		setLocation(x, y);
-		SendThread th = new SendThread(Utility_Share.clientProgram, player);
+		
+		SendThread th = new SendThread(Utility_Share.clientProgram, Utility_Share.player);
 		th.start();
 		
-
-		
-		
 	}
+	
 	@Override
 	public void keyPressed(KeyEvent k) {
-		System.out.println(-33);
+		
 		int key = k.getKeyCode();
 		if(key == KeyEvent.VK_RIGHT) {
 			speedX=10;
@@ -91,8 +87,6 @@ public class Single_Control extends JLabel implements KeyListener,ActionListener
 		//System.out.println("X" + x +" Y"+y);
 		
 		//update();
-		k.consume();
-		
 		//MainClass.program.channel.send(player);
 		
 		
@@ -111,8 +105,8 @@ public class Single_Control extends JLabel implements KeyListener,ActionListener
 		}
 		
 		
-		player.setSpeedX(0);
-		player.setSpeedY(0);
+		Utility_Share.player.setSpeedX(0);
+		Utility_Share.player.setSpeedY(0);
 		//update();
 
 		//MainClass.program.channel.send(player);
@@ -130,5 +124,12 @@ public class Single_Control extends JLabel implements KeyListener,ActionListener
 		update();
 		//System.out.println(getX() +"X  Y"+ getY());
 		
+		}
+	public static Single_Control getInstance() {
+		return getInstance();
 	}
+	
+	
+	
+	
 }

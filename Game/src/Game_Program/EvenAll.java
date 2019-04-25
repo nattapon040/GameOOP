@@ -1,27 +1,21 @@
 package Game_Program;
 
-import java.awt.Menu;
-import java.awt.TextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.UnknownHostException;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import Connection.ClientProgram;
 import Utility_Share.Utility_Share;
 
 public class EvenAll {
 
-	private Frame form;
-	public void btn_MenuForm_Even(JLabel label,String status,Frame form) {	
+	private FrameGame form;
+	public void btn_MenuForm_Even(JLabel label,String status,FrameGame form) {	
 		this.form = form;
 		
 		//MouseAdapter
@@ -35,6 +29,7 @@ public class EvenAll {
 					if(Utility_Share.isConnect == false) {
 						
 						Connection_Form_Client client = new Connection_Form_Client();
+						client.setVisible(true);
 						return;
 					}else {
 						

@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import Utility_Share.Utility_Share;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import java.awt.Color;
@@ -18,7 +17,7 @@ public class Menu_Form extends javax.swing.JPanel implements ActionListener{
 
 	private Timer timer;
 	
-	public Menu_Form(Frame frame) {
+	public Menu_Form(FrameGame frame) {
 		setSize(Utility_Share.sSize_Frame);
 		timer = new Timer(1, this);
 		timer.start();

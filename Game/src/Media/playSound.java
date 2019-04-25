@@ -36,7 +36,7 @@ public class playSound implements Runnable{
 
 	@Override
 	public void run() {
-		playSound(new File("D:\\War of AirStrike\\Game\\src\\Media\\SoundGame.wav"));
+		//playSound(new File("D:\\War of AirStrike\\Game\\src\\Media\\SoundGame.wav"));
 	}
 	
 }

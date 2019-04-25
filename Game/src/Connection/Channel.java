@@ -10,9 +10,8 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 
-import javax.swing.JPanel;
-
 import Game_Program.MultiPlayer_Control;
+import Game_Program.Single_Control;
 import Utility_Share.Utility_Share;
 
 public class Channel implements Runnable{
@@ -45,7 +44,6 @@ public class Channel implements Runnable{
 		running = true;
 		while(running) {
 			try {
-				System.out.println("Read");
 				byte [] serialVersionIID = new byte[4096];
 				InputStream inputStream = socket.getInputStream();
 				inputStream.read(serialVersionIID);
@@ -53,8 +51,17 @@ public class Channel implements Runnable{
 				ObjectInputStream obj_InputStream = new ObjectInputStream(byteArr_InputStream);
 				
 				Player  player = (Player) obj_InputStream.readObject();
-	
+				
+				if(player.getKey_User().equals(Single_Control.KeyUser)) {
+					
+					Utility_Share.player.setBlood(player.getBlood());
+					
+					System.out.println(Utility_Share.player.getBlood()+" Blood");
+					continue;
+				}
+				
 				if(Utility_Share.MultiPlayer.containsKey(player.getKey_User())) {
+						Utility_Share.MultiPlayer.get(player.getKey_User()).setBlood(player.getBlood());
 						Utility_Share.MultiPlayer.get(player.getKey_User()).setSpeedX(player.getSpeedX());
 						Utility_Share.MultiPlayer.get(player.getKey_User()).setSpeedY(player.getSpeedY());
 								
@@ -63,21 +70,16 @@ public class Channel implements Runnable{
 								
 						Utility_Share.MultiPlayer.get(player.getKey_User()).updateSpeed();
 				}else {
+					
 						MultiPlayer_Control control = new MultiPlayer_Control(player);
 						Utility_Share.MultiPlayer.put(player.getKey_User(), control);
 						
 				}
-							
-				System.out.println("Name "+ player.getNamePlyer());
-			
-				if(null != onSocketListener)onSocketListener.onReceived(this, player);
-
-					
+				
+				//if(null != onSocketListener)onSocketListener.onReceived(this, player);
+		
 			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
-				try {
-					stop();
-				} catch (IOException e1) {e1.printStackTrace();}
+				break;
 			}
 			
 		}
@@ -85,7 +87,7 @@ public class Channel implements Runnable{
 	}
 	
 	
-	public void send(Player object){
+	public void sendData(Player object){
 		PrintStream dataOut = null;
 		byte [] serializedObject_Writer = new byte[4096];
 		
@@ -97,7 +99,6 @@ public class Channel implements Runnable{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
 		try {
 			objectOutput.writeObject(object);
 			objectOutput.flush();
@@ -105,7 +106,6 @@ public class Channel implements Runnable{
 				dataOut = new PrintStream(socket.getOutputStream());
 			} catch (IOException e) {e.printStackTrace();}
 			serializedObject_Writer = byteArr_Obj.toByteArray();
-			
 			dataOut = new PrintStream(socket.getOutputStream());
 			dataOut.write(serializedObject_Writer);
 			dataOut.flush();

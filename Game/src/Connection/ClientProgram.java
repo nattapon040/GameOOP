@@ -1,15 +1,10 @@
 package Connection;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
 
 import Utility_Share.Utility_Share;
 
@@ -82,7 +77,7 @@ public class ClientProgram implements OnSocketListener
 	
 	
 	public void send(Player object) {
-		//channel.send(object);
+		channel.sendData(object);
 	}
 	
 	

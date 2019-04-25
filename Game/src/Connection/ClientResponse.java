@@ -9,7 +9,6 @@ import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Utility_Share.Utility_Share;
 
 public class ClientResponse {
 	

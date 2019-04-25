@@ -28,11 +28,12 @@ public class Utility_Share {
 	
 	public static ClientProgram program = new ClientProgram();
 	
+	public static Player player;
 	
 	public static ClientProgram clientProgram = new ClientProgram();
 	
 	public static Image imgPlayer = Toolkit.getDefaultToolkit().createImage(Utility_Share.class.getResource("/Image/player.png"));
-	public static Image imgBoss = Toolkit.getDefaultToolkit().createImage(Utility_Share.class.getResource("/Image/Boss.gif"));
+	public static Image imgBoss = Toolkit.getDefaultToolkit().createImage(Utility_Share.class.getResource("/Image/Boss.png"));
 	
 	public static Image imgBtn_Start_Default = Toolkit.getDefaultToolkit().createImage(Utility_Share.class.getResource("/Image/btn_Start_Default.png"));
 	public static Image imgBtn_Cr_Default = Toolkit.getDefaultToolkit().createImage(Utility_Share.class.getResource("/Image/btn_Cr_Default.png"));

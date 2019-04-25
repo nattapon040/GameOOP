@@ -10,7 +10,6 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -19,7 +18,7 @@ import Utility_Share.Utility_Share;
 public class Map_Game extends javax.swing.JFrame{
 	
 	public Map_Game() {
-		System.out.println(-33);
+		
 		setSize(Utility_Share.sSize_Frame);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -38,7 +37,7 @@ public class Map_Game extends javax.swing.JFrame{
 					if(Utility_Share.clientProgram.channel != null) {
 						Utility_Share.clientProgram.channel.stop();
 						setVisible(false);
-						Frame frame = new Frame();
+						FrameGame frame = new FrameGame();
 						frame.setVisible(true);
 						//****
 						return;
@@ -74,20 +73,21 @@ public class Map_Game extends javax.swing.JFrame{
 		
 		@Override
 		protected void paintComponent(Graphics g) {
-				
+			g.drawImage(Utility_Share.imgMaps, 0, 0, 1366, 768, 0, 0, 1382, 809, this);
 			
-			/*
-			 * g.setColor(Color.RED);
-			g.fillRoundRect(7, 9, Utility_Share.player.getBlood(), 20, 25, 25);
+			
+			g.setColor(Color.RED);
+			g.fillRoundRect(7, 9, 355, 20, 25, 25);
 			g.setFont(new Font("PSL Kitthada", Font.PLAIN, 18));
 			g.setColor(Color.RED);
-			g.drawString("Dark Vader "+Utility_Share.player.getBlood(), 125,100);*/
+			g.drawString("Dark Vader "+ 355, 20,100);
+			
 			g.setColor(Color.green);
-			g.fillRoundRect(1078, 663, this.control.player.getBlood(), 22, 25, 25);
+			g.fillRoundRect(1078, 663, Utility_Share.player.getBlood(), 22, 25, 25);
 			g.setFont(new Font("PSL Kitthada", Font.PLAIN, 18));
 			
 			g.setColor(Color.CYAN);
-			g.fillRoundRect(1078, 694, this.control.player.getBlood(), 22, 25, 25);
+			g.fillRoundRect(1078, 694, Utility_Share.player.getBlood(), 22, 25, 25);
 			g.setFont(new Font("PSL Kitthada", Font.PLAIN, 18));
 			
 			
@@ -98,8 +98,8 @@ public class Map_Game extends javax.swing.JFrame{
 			repaint();
 			for (Map.Entry<String, MultiPlayer_Control> entry : Utility_Share.MultiPlayer.entrySet()) {
 				String key = entry.getKey();
-				
-				if(Utility_Share.MultiPlayer.get(key).isAddToFrame() == false) {
+				MultiPlayer_Control multiPlayer = Utility_Share.MultiPlayer.get(key);
+				if(multiPlayer.isAddToFrame() == false && (!multiPlayer.getKeyUser().equals(Utility_Share.player.getKey_User()))) {
 					add(Utility_Share.MultiPlayer.get(key));
 				}
 			}
